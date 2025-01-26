@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Health Dashboard - Digital Well-Being Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Importing Chart.js -->
+  <style>
+    /* Add animations for fade-in */
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dashboard styling */
+    .dashboard-section {
+      padding: 50px 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 30px 0;
+    }
+
+    .dashboard-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .stat-card {
+      display: inline-block;
+      margin: 15px;
+      background: #f7f7f7;
+      padding: 20px;
+      border-radius: 8px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .stat-card h3 {
+      font-size: 2em;
+      color: #2ecc71;
+    }
+
+    .stat-card p {
+      font-size: 1.2em;
+      color: #34495e;
+    }
+
+    /* Mobile responsiveness */
+    @media screen and (max-width: 768px) {
+      .stat-card {
+        width: 90%;
+      }
+    }
+
+    /* Navigation Styling */
+    nav {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    nav a {
+      font-size: 1.2em;
+      margin: 0 15px;
+      color: #3498db;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #2ecc71;
+    }
+
+    /* Graph Container */
+    .graph-container {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    canvas {
+      max-width: 100%;
+      height: 400px;
+    }
+
+    /* Input Styling */
+    .input-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .input-container input {
+      padding: 10px;
+      font-size: 1.2em;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      width: 150px;
+    }
+
+    .input-container button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      border: none;
+      background-color: #2ecc71;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .input-container button:hover {
+      background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Digital Health Dashboard</h1>
+    <p>Track your digital well-being, habits, and progress.</p>
+
+    <!-- Navigation Menu -->
+    <nav>
+      <a href="index.html">Back to Home</a>
+      <a href="mood-journal.html">Mood Journal</a>
+      <a href="stress-tracker.html">Stress Tracker</a>
+    </nav>
+  </header>
+
+  <!-- Digital Health Dashboard Section -->
+  <section class="dashboard-section fade-in">
+    <div class="container">
+      <h2>Track Your Digital Health</h2>
+      <p>Monitor your screen time, habits, and overall digital well-being.</p>
+
+      <!-- Digital Health Statistics Cards -->
+      <div class="stat-cards">
+        <div class="stat-card fade-in" id="screen-time">
+          <h3>Screen Time</h3>
+          <p>0 hours 0 minutes</p>
+        </div>
+        <div class="stat-card fade-in" id="daily-breaks">
+          <h3>Daily Breaks</h3>
+          <p>0 breaks today</p>
+        </div>
+        <div class="stat-card fade-in" id="mood-level">
+          <h3>Mood Level</h3>
+          <p>0/10</p>
+        </div>
+      </div>
+
+      <!-- Digital Health Graph or Progress -->
+      <div class="graph-container fade-in">
+        <h3>Your Digital Health Progress</h3>
+        <canvas id="healthGraph"></canvas>
+      </div>
+
+      <!-- Input Section for Manual Updates -->
+      <div class="input-container">
+        <input type="number" id="input-screen-time" placeholder="Enter Screen Time (min)" min="0">
+        <input type="number" id="input-daily-breaks" placeholder="Enter Breaks" min="0">
+        <button onclick="updateInputs()">Update</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>For more information and feedback, contact us at <a href="mailto:stresslesstechz@gmail.com">stresslesstechz@gmail.com</a></p>
+  </footer>
+
+  <script>
+    // Initial data for screen time, daily breaks, and mood level
+    let screenTime = 5 * 60 + 30; // Screen time in minutes
+    let dailyBreaks = 3; // Number of daily breaks
+    let moodLevel = 8; // Mood level (out of 10)
+
+    // Function to update the stats dynamically
+    function updateStats() {
+      // Update screen time (in hours and minutes)
+      const screenTimeHours = Math.floor(screenTime / 60);
+      const screenTimeMinutes = screenTime % 60;
+      document.querySelector('#screen-time p').textContent = `${screenTimeHours} hours ${screenTimeMinutes} minutes`;
+
+      // Update daily breaks
+      document.querySelector('#daily-breaks p').textContent = `${dailyBreaks} breaks today`;
+
+      // Update mood level
+      document.querySelector('#mood-level p').textContent = `${moodLevel}/10`;
+    }
+
+    // Function to update the screen time, daily breaks, and graph based on inputs
+    function updateInputs() {
+      const newScreenTime = parseInt(document.querySelector('#input-screen-time').value);
+      const newDailyBreaks = parseInt(document.querySelector('#input-daily-breaks').value);
+
+      if (!isNaN(newScreenTime) && newScreenTime >= 0) {
+        screenTime = newScreenTime;
+      }
+
+      if (!isNaN(newDailyBreaks) && newDailyBreaks >= 0) {
+        dailyBreaks = newDailyBreaks;
+      }
+
+      // Update the stats
+      updateStats();
+
+      // Update the graph
+      healthGraph.data.datasets[0].data.push(screenTime); // Add new screen time value
+      healthGraph.data.datasets[1].data.push(moodLevel); // Add new mood level value
+      healthGraph.data.labels.push(`Day ${healthGraph.data.labels.length + 1}`); // Add new label
+      healthGraph.update(); // Refresh the chart
+    }
+
+    // Chart.js: Digital Health Progress Graph
+    const ctx = document.getElementById('healthGraph').getContext('2d');
+    const healthGraph = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
+        datasets: [{
+          label: 'Screen Time (in minutes)',
+          data: [300, 400, 350, 500, 450], // Example screen time data
+          borderColor: '#2ecc71',
+          fill: false,
+          tension: 0.2
+        },
+        {
+          label: 'Mood Level',
+          data: [7, 8, 6, 9, 8], // Example mood data
+          borderColor: '#3498db',
+          fill: false,
+          tension: 0.2
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          title: {
+            display: true,
+            text: 'Digital Health Progress Over Time'
+          }
+        },
+        scales: {
+          y: {
+            min: 0,
+            max: 10,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    });
+
+    // Call up

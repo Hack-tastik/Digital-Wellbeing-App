@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Hub - Digital Well-Being</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Page Style */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #2ecc71;
+      padding: 20px;
+      text-align: center;
+      color: white;
+      font-size: 24px;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+
+    .section-title {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 15px;
+    }
+
+    .content p {
+      font-size: 1.2em;
+      color: #555;
+    }
+
+    .btn {
+      display: inline-block;
+      background-color: #2ecc71;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 1em;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #27ae60;
+    }
+
+    .comment-section {
+      margin-top: 50px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .comment {
+      margin-bottom: 15px;
+      background-color: #f7f7f7;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    /* Privacy Policy Section */
+    .privacy-policy {
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin-top: 40px;
+    }
+
+    .privacy-policy h3 {
+      color: #2ecc71;
+      font-size: 1.8em;
+    }
+
+    .privacy-policy ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .privacy-policy ul li {
+      margin-bottom: 15px;
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    .form-container {
+      margin-top: 40px;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-container input,
+    .form-container button {
+      padding: 12px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      font-size: 1em;
+    }
+
+    .form-container input:focus,
+    .form-container button:focus {
+      border-color: #2ecc71;
+      outline: none;
+    }
+
+    .form-container textarea {
+      width: 100%;
+      padding: 12px;
+      font-size: 1.1em;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      margin-bottom: 20px;
+    }
+
+    .form-container textarea:focus {
+      border-color: #2ecc71;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Welcome to the Community Hub</h1>
+    <p>Join a supportive community of people focused on digital well-being. Your privacy is important to us, and we foster an open environment where communication with experts and peers is encouraged.</p>
+  </header>
+
+  <div class="container">
+    <section class="content">
+      <h2 class="section-title">Purpose of Community Hub</h2>
+      <p>The Community Hub is designed to provide both virtual and physical spaces where members can share their experiences, get support, and engage with mental health professionals in a safe and welcoming environment. Our goal is to help you on your mental health journey while ensuring that privacy is respected.</p>
+
+      <p>Whether you are looking for advice, a peer to chat with, or guidance from professionals, this community is here for you. Please remember that we have strict privacy policies to ensure that all members are protected while engaging with the community.</p>
+    </section>
+
+    <!-- Privacy Policy Section -->
+    <section class="privacy-policy">
+      <h3>Community Privacy Policy</h3>
+      <ul>
+        <li>Personal information will never be shared publicly without your consent.</li>
+        <li>Any form of harassment or violation of community rules will result in the immediate suspension of access.</li>
+        <li>All data exchanged in the community is encrypted and protected.</li>
+        <li>Anonymous interactions are encouraged to ensure members' privacy and comfort.</li>
+        <li>We are committed to providing a space free of judgement, where mental well-being is prioritized.</li>
+      </ul>
+    </section>
+
+    <!-- User Input & Verification Section -->
+    <section class="form-container">
+      <h2 class="section-title">Enter Your Details to Join</h2>
+      <form id="joinForm">
+        <input type="text" id="userId" name="userId" placeholder="Enter your email or phone number" required aria-label="Enter email or phone number">
+        <button type="button" id="sendCode" class="btn">Send Verification Code</button>
+        <div id="verificationInput" style="display:none;">
+          <input type="text" id="verificationCode" name="verificationCode" placeholder="Enter verification code" required aria-label="Enter verification code">
+          <button type="button" id="verifyUser" class="btn">Verify</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Community Comments Section -->
+    <section class="comment-section">
+      <h2 class="section-title">Community Comments</h2>
+      <div id="commentsContainer">
+        <div class="comment">
+          <strong>User 1:</strong>
+          <p>I'm feeling so much better after joining this community! The support is amazing.</p>
+        </div>
+        <div class="comment">
+          <strong>User 2:</strong>
+          <p>Great space for discussing digital health with others who understand. Highly recommend!</p>
+        </div>
+      </div>
+
+      <textarea id="userComment" rows="4" placeholder="Leave your comment here..." aria-label="Write your comment here"></textarea>
+      <button id="submitComment" class="btn">Submit Comment</button>
+    </section>
+  </div>
+
+  <script>
+    // Handle sending verification code
+    document.getElementById('sendCode').addEventListener('click', function() {
+      const userId = document.getElementById('userId').value;
+      if (userId) {
+        // Simulate sending verification code
+        alert(`Verification code sent to ${userId}`);
+        document.getElementById('verificationInput').style.display = 'block';
+      } else {
+        alert('Please enter a valid email or phone number.');
+      }
+    });
+
+    // Handle verification
+    document.getElementById('verifyUser').addEventListener('click', function() {
+      const verificationCode = document.getElementById('verificationCode').value;
+      if (verificationCode === "123456") { // Simulated code for demonstration
+        alert('Verification successful!');
+      } else {
+        alert('Invalid verification code. Please try again.');
+      }
+    });
+
+    // Handle submitting comments
+    document.getElementById('submitComment').addEventListener('click', function() {
+      const comment = document.getElementById('userComment').value;
+      if (comment) {
+        const newComment = document.createElement('div');
+        newComment.classList.add('comment');
+        newComment.innerHTML = `<strong>You:</strong><p>${comment}</p>`;
+        document.getElementById('commentsContainer').appendChild(newComment);
+        document.getElementById('userComment').value = ''; // Clear input field
+      } else {
+        alert('Please enter a comment.');
+      }
+    });
+  </script>
+
+</body>
+</html>

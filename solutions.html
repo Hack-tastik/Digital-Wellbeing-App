@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stress Management Solutions</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Add styles for the page */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2ecc71;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      width: 80%;
+      margin: 20px auto;
+    }
+
+    .section {
+      background-color: white;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .solutions {
+      background-color: #f9f9f9;
+      padding: 20px;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .solutions h3 {
+      font-size: 1.5em;
+      margin-bottom: 20px;
+    }
+
+    .solutions ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+
+    .solutions li {
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Stress Management Solutions</h1>
+  </header>
+
+  <div class="container">
+
+    <!-- Solutions Section -->
+    <section class="section solutions" id="solutionsSection">
+      <h3>Stress Level Breakdown and Solutions</h3>
+      <ul id="solutionsList">
+        <!-- Solutions will be added here dynamically -->
+      </ul>
+    </section>
+
+  </div>
+
+  <script>
+    // Get the stress level from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const stressLevel = parseFloat(urlParams.get('stress'));
+
+    // Function to display solutions based on stress level
+    const solutionsList = document.getElementById('solutionsList');
+    solutionsList.innerHTML = ''; // Clear any existing content
+
+    if (stressLevel <= 4) {
+      solutionsList.innerHTML = `
+        <li>Great! Keep up the good work. Continue with your stress management routine.</li>
+        <li>Try incorporating regular breaks into your day to maintain a low stress level.</li>
+      `;
+    } else if (stressLevel >= 5 && stressLevel <= 7) {
+      solutionsList.innerHTML = `
+        <li>Your stress level is moderate. Consider practicing mindfulness or meditation.</li>
+        <li>Take short walks or engage in light physical exercises.</li>
+      `;
+    } else {
+      solutionsList.innerHTML = `
+        <li>Your stress level is high. It's important to take immediate action!</li>
+        <li>Try deep breathing exercises and focus on relaxation techniques.</li>
+        <li>Consider seeking professional help if stress persists over time.</li>
+      `;
+
+      // Check if the stress level is greater than 95% (i.e., higher than 9)
+      if (stressLevel > 9) {
+        solutionsList.innerHTML += `
+          <li>If your stress level is extreme, it's critical to contact a stress-relief professional or authority in your area.</li>
+          <li>Contact your workplace HR, local mental health services, or a counselor immediately.</li>
+        `;
+      }
+    }
+
+    // Additional stress-relief contact info (example)
+    solutionsList.innerHTML += `
+      <h4>Contact Information for Stress Relief</h4>
+      <ul>
+        <li>National Stress Relief Hotline: 1-800-555-1234</li>
+        <li>Local Counseling Service: <a href="mailto:counseling@example.com">counseling@example.com</a></li>
+      </ul>
+    `;
+  </script>
+
+</body>
+</html>

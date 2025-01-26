@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Health Dashboard - Digital Well-Being Tracker</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Add animations for fade-in */
+    .fade-in {
+      animation: fadeIn 1.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Dashboard styling */
+    .dashboard-section {
+      padding: 50px 0;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      margin: 30px 0;
+    }
+
+    .dashboard-section h2 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+
+    .stat-card {
+      display: inline-block;
+      margin: 15px;
+      background: #f7f7f7;
+      padding: 20px;
+      border-radius: 8px;
+      width: 200px;
+      text-align: center;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-10px);
+    }
+
+    .stat-card h3 {
+      font-size: 2em;
+      color: #2ecc71;
+    }
+
+    .stat-card p {
+      font-size: 1.2em;
+      color: #34495e;
+    }
+
+    /* Mobile responsiveness */
+    @media screen and (max-width: 768px) {
+      .stat-card {
+        width: 90%;
+      }
+    }
+
+    /* Navigation Styling */
+    nav {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    nav a {
+      font-size: 1.2em;
+      margin: 0 15px;
+      color: #3498db;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #2ecc71;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Digital Health Dashboard</h1>
+    <p>Track your digital well-being, habits, and progress.</p>
+
+    <!-- Navigation Menu -->
+    <nav>
+      <a href="index.html">Back to Home</a>
+      <a href="mood-journal.html">Mood Journal</a>
+      <a href="stress-tracker.html">Stress Tracker</a>
+    </nav>
+  </header>
+
+  <!-- Digital Health Dashboard Section -->
+  <section class="dashboard-section fade-in">
+    <div class="container">
+      <h2>Track Your Digital Health</h2>
+      <p>Monitor your screen time, habits, and overall digital well-being.</p>
+
+      <!-- Digital Health Statistics Cards -->
+      <div class="stat-cards">
+        <div class="stat-card fade-in">
+          <h3>Screen Time</h3>
+          <p>5 hours 30 minutes</p>
+        </div>
+        <div class="stat-card fade-in">
+          <h3>Daily Breaks</h3>
+          <p>3 breaks today</p>
+        </div>
+        <div class="stat-card fade-in">
+          <h3>Mood Level</h3>
+          <p>8/10</p>
+        </div>
+      </div>
+
+      <!-- Digital Health Graph or Progress -->
+      <div class="graph-container fade-in">
+        <h3>Your Digital Health Progress</h3>
+        <div class="graph">
+          <!-- This can be a placeholder for a graph -->
+          <p>Graph will be displayed here.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>For more information and feedback, contact us at <a href="mailto:stresslesstechz@gmail.com">stresslesstechz@gmail.com</a></p>
+  </footer>
+
+</body>
+</html>

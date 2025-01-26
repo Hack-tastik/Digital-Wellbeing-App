@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mood Journal</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background-color: #f7f0e1;
+      color: #4f4f4f;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: #2ecc71;
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      font-family: 'Georgia', serif;
+    }
+
+    h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: normal;
+    }
+
+    .container {
+      width: 80%;
+      margin: 30px auto;
+    }
+
+    .journal-section {
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    .mood-journal-box {
+      background-color: #fdf0c5;
+      border: 1px solid #d1c59b;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: 'Georgia', serif;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
+    }
+
+    .mood-select,
+    textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 1.2rem;
+      border: 1px solid #d1c59b;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background-color: #fffbe0;
+      font-family: 'Georgia', serif;
+      resize: vertical;
+    }
+
+    textarea {
+      height: 150px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #2ecc71;
+      color: white;
+      padding: 15px 25px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      background-color: #27ae60;
+    }
+
+    .recommendations {
+      background-color: #f3f0df;
+      border-left: 5px solid #2ecc71;
+      padding: 15px;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .past-journal {
+      margin-top: 30px;
+    }
+
+    .entry {
+      background-color: #f3f0df;
+      border-left: 5px solid #2ecc71;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .entry h4 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: normal;
+    }
+
+    .entry p {
+      margin: 10px 0;
+      font-size: 1.2rem;
+    }
+
+    .entry .mood {
+      font-weight: bold;
+      color: #2ecc71;
+    }
+
+    .mic-btn {
+      display: inline-block;
+      background-color: #2ecc71;
+      color: white;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.5rem;
+      margin-top: 15px;
+      border: none;
+    }
+
+    .mic-btn:hover {
+      background-color: #27ae60;
+    }
+
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Mood Journal</h1>
+    <p>Write down or record your moods and reflect on your day, just like in a diary.</p>
+  </header>
+
+  <div class="container">
+    <!-- Journal Entry Section -->
+    <section class="journal-section">
+      <h2>1. Record Your Mood</h2>
+
+      <div class="mood-journal-box">
+        <label for="moodSelect">How are you feeling today?</label>
+        <select id="moodSelect" class="mood-select">
+          <option value="Happy">Happy</option>
+          <option value="Sad">Sad</option>
+          <option value="Stressed">Stressed</option>
+          <option value="Relaxed">Relaxed</option>
+          <option value="Angry">Angry</option>
+          <option value="Anxious">Anxious</option>
+          <option value="Excited">Excited</option>
+          <option value="Neutral">Neutral</option>
+        </select>
+
+        <label for="journalEntry">What happened today?</label>
+        <textarea id="journalEntry" placeholder="Write about your day..."></textarea>
+
+        <button id="saveEntry">Save Entry</button>
+        <button class="mic-btn" id="startRecording" aria-label="Start recording">🎙️</button>
+      </div>
+    </section>
+
+    <!-- Personalized Recommendations Section -->
+    <section class="journal-section recommendations" id="recommendationSection">
+      <h2>2. Personalized Recommendations</h2>
+      <p id="recommendationMessage">Please select a mood and write your journal entry to receive personalized recommendations.</p>
+    </section>
+
+    <!-- Past Journal Entries Section -->
+    <section class="journal-section past-journal">
+      <h2>3. Your Past Entries</h2>
+      <div id="pastEntries">
+        <!-- Past entries will be displayed here -->
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // Check for Speech Recognition API availability
+    const isSpeechRecognitionAvailable = 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+
+    // If speech recognition is available, enable recording feature
+    const recognition = isSpeechRecognitionAvailable ? new (window.SpeechRecognition || window.webkitSpeechRecognition)() : null;
+
+    if (recognition) {
+      recognition.lang = 'en-US';
+      recognition.interimResults = false;
+
+      recognition.onstart = () => {
+        console.log("Voice recording started.");
+      };
+
+      recognition.onresult = event => {
+        const transcript = event.results[0][0].transcript;
+        document.getElementById('journalEntry').value = transcript;
+        console.log("Voice input detected:", transcript);
+      };
+
+      recognition.onerror = event => {
+        console.error("Error occurred in speech recognition:", event.error);
+      };
+    }
+
+    // Function to save the journal entry in localStorage
+    function saveJournalEntry() {
+      const mood = document.getElementById('moodSelect').value;
+      const entry = document.getElementById('journalEntry').value;
+      const date = new Date().toLocaleString();
+
+      // Create a new entry object
+      const journalEntry = { mood, entry, date };
+
+      // Get the current entries from localStorage
+      let entries = JSON.parse(localStorage.getItem('moodJournal')) || [];
+
+      // Add the new entry to the array
+      entries.push(journalEntry);
+
+      // Save the updated entries array back to localStorage
+      localStorage.setItem('moodJournal', JSON.stringify(entries));
+
+      // Clear the form
+      document.getElementById('moodSelect').value = 'Happy';
+      document.getElementById('journalEntry').value = '';
+
+      // Display the updated entries
+      displayPastEntries();
+
+      // Provide personalized recommendation
+      provideRecommendation(mood);
+    }
+
+    // Function to display past journal entries from localStorage
+    function displayPastEntries() {
+      const entries = JSON.parse(localStorage.getItem('moodJournal')) || [];
+      const pastEntriesDiv = document.getElementById('pastEntries');
+
+      // Clear the past entries section
+      pastEntriesDiv.innerHTML = '';
+
+      // Loop through the entries and display them
+      entries.forEach(entry => {
+        const entryDiv = document.createElement('div');
+        entryDiv.classList.add('entry');
+
+        entryDiv.innerHTML = `
+          <h4>${entry.date}</h4>
+          <p class="mood">Mood: ${entry.mood}</p>
+          <p>${entry.entry}</p>
+        `;
+
+        pastEntriesDiv.appendChild(entryDiv);
+      });
+    }
+
+    // Function to provide personalized recommendations based on the mood
+    function provideRecommendation(mood) {
+      const recommendationMessage = document.getElementById('recommendationMessage');
+      let recommendation;
+
+      switch (mood) {
+        case 'Stressed':
+          recommendation = 'Consider practicing deep breathing or meditation to manage stress. A walk in nature can also help you unwind.';
+          break;
+        case 'Sad':
+          recommendation = 'Try connecting with a friend or loved one. Expressing your feelings can help lift your spirits.';
+          break;
+        case 'Angry':
+          recommendation = 'It might help to take a break and practice some relaxation techniques, like progressive muscle relaxation.';
+          break;
+        case 'Anxious':
+          recommendation = 'Consider journaling about your thoughts or practicing mindfulness to help calm your nerves.';
+          break;
+        case 'Happy':
+          recommendation = 'Celebrate your happiness! Maybe share your joy with someone or treat yourself to something special.';
+          break;
+        case 'Relaxed':
+          recommendation = 'Enjoy the moment! Consider maintaining this state of calm with some light meditation or a hobby you enjoy.';
+          break;
+        case 'Excited':
+          recommendation = 'Keep riding that wave of excitement! Channel your energy into something creative or productive.';
+          break;
+        case 'Neutral':
+          recommendation = 'Find something that excites or engages you, whether it’s a hobby or a new activity to try.';
+          break;
+        default:
+          recommendation = 'Write a little more about how you are feeling to get the best recommendation!';
+          break;
+      }
+
+      recommendationMessage.textContent = recommendation;
+    }
+
+    // Event listener for the "Save Entry" button
+    document.getElementById('saveEntry').addEventListener('click', saveJournalEntry);
+
+    // Event listener for the microphone button to start voice recording
+    if (recognition) {
+      document.getElementById('startRecording').addEventListener('click', () => {
+        recognition.start();
+      });
+    }
+
+    // Display past entries when the page loads
+    window.onload = displayPastEntries;
+  </script>
+
+</body>
+</html>

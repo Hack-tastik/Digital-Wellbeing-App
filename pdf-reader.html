@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Time - PDF Viewer</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic page styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f7fa;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #2ecc71;
+      padding: 20px;
+      color: white;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+    }
+
+    .container {
+      width: 90%;
+      max-width: 1000px;
+      margin: 20px auto;
+      padding: 20px;
+    }
+
+    .pdf-viewer {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Style for iframe */
+    .pdf-viewer iframe {
+      width: 100%;
+      height: 600px;
+      border: none;
+      border-radius: 8px;
+    }
+
+    .back-button {
+      background-color: #27ae60;
+      color: white;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 20px;
+      display: inline-block;
+    }
+
+    .back-button:hover {
+      background-color: #2ecc71;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <h1>Screen Time - PDF Viewer</h1>
+    <p>Read and download the guide on healthy screen habits.</p>
+  </header>
+
+  <!-- Main content -->
+  <div class="container">
+    <section class="pdf-viewer">
+      <h2>Healthy Screen Habits</h2>
+      <!-- Embed the PDF file using iframe (change this link to your actual link) -->
+      <iframe src="https://www.in.gov/localhealth/portercounty/files/Screen-Time.pdf" type="application/pdf"></iframe>
+    </section>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">Back to Resources</a>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>For more information, contact us at <a href="mailto:stresslesstechz@gmail.com">stresslesstechz@gmail.com</a></p>
+  </footer>
+
+</body>
+</html>
