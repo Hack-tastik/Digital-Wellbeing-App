@@ -2,16 +2,20 @@
 
 
 ## Basic Details
-### Team Name: Code Crackheadz
+### Team Name: hack-tastic 
 
 
 ### Team Members
-- Member 1: Bhagyalakshmi.C - Gce kannur
-- Member 2: Nihala .K - Gce kannur
+- Member 1: Malufa M
+- Member 2: Binisha K
+- Member 3: Ananya M
+- Member 4: Nandana K
+- Member 5: bhavya J S
+- Member 6: Nikitha 
   
 
 ### Hosted Project LinkS
-https://bhagyamdas.github.io/wellbeing/
+https://hack-tastik.github.io/Digital-Wellbeing-App/
 
 ### Project Description 
 Life without technology may seem simple. But health challenges persist.
